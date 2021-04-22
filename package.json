@@ -9,7 +9,6 @@
         "test": "mocha -r ts-node/register tests/*.ts"
     },
     "dependencies": {
-        "@pulumi/azure": "^4.0.0",
         "@pulumi/azure-native": "^1.0.0",
         "@pulumi/pulumi": "^3.0.0",
         "@types/assert": "^1.5.4",
