@@ -1,9 +1,9 @@
 import * as pulumi from "@pulumi/pulumi";
-//import * as azure from "@pulumi/azure";
+import * as Azure from "@pulumi/azure";
 import * as resources from "@pulumi/azure-native/resources";
 import * as vm from "@pulumi/azure-native/compute";
 import * as vNetwork from "@pulumi/azure-native/network";
-import * as Storages from "@pulumi/azure-native/storage";
+
 
 // Resource Group
 
@@ -58,14 +58,12 @@ const publicSubnets = pulumi.output(vNetwork.getSubnet({
 export const PublicSubnetName = publicSubnets.name
 export const PublicSubnet1 = publicSubnets.addressPrefix
 
-// StorageAccount 
+// Function App
+const functionApp = pulumi.output(Azure.appservice.getFunctionApp({
+    name: "webfunctiopn",
+    resourceGroupName: "networking"
+}));
 
-
-//const StorageAccount = pulumi.output(Storages.getStorageAccount({
-//   accountName: "" ,
-//   resourceGroupName: "networking"
-//}, { async: true }));
-//export const StorageAccountName = StorageAccount.name
-//export const StorageAccountPrimaryLocation = StorageAccount.primaryLocation
-//export const StorageAccountSku = StorageAccount.sku.tier
-//  Solve the random ID problem  e.g \{ filter \: \"value\" ! \} 
+export const functionAppName = functionApp.name
+export const functionAppOS = functionApp.osType
+export const functionAppLinuxFxVersion = functionApp.siteConfigs[0].linuxFxVersion
